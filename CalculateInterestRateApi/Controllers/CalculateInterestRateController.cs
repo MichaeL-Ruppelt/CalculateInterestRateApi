@@ -2,11 +2,12 @@ using CalculateInterestRateApi.Entities;
 using CalculateInterestRateApi.Interfaces;
 using CalculateInterestRateApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CalculateInterestRateApi.Controllers
 {
     [ApiController]
-    [Route("Calculadora")]
+    [Route("CalculaJuros")]
     public class CalculateInterestRateController : ControllerBase
     {
         private readonly ILogger<CalculateInterestRateController> _logger;
@@ -19,7 +20,6 @@ namespace CalculateInterestRateApi.Controllers
         }
 
         [HttpPost]
-        [Route("CalculaJuros")]
         public async Task<ActionResult<CalculateResponse>> GetInterestRateCalculated([FromQuery] decimal initialValue = 0, [FromQuery] int months = 0)
         {
             try
@@ -36,15 +36,9 @@ namespace CalculateInterestRateApi.Controllers
             }
             catch(Exception ex) 
             {
+                _logger.LogError(ex, ex.Message);
                 return Problem(ex.Message);
             }
-        }
-
-        [HttpGet]
-        [Route("ShowMeTheCode")]
-        public async Task<IActionResult> GetRelativePathFromGithub()
-        {
-            return Ok();
         }
     }
 }
