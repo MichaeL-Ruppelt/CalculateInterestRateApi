@@ -20,7 +20,7 @@ namespace CalculateInterestRateApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CalculateResponse>> GetInterestRateCalculated([FromQuery] decimal initialValue = 0, [FromQuery] int months = 0)
+        public async Task<ActionResult<CalculateResponse>> InterestRateCalculated([FromQuery] decimal initialValue = 0, [FromQuery] int months = 0)
         {
             try
             {
